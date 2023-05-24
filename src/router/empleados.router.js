@@ -44,9 +44,9 @@ router.get('/list', async (req, res) => {
     const nombre = 'Jaime';
     try {
       const empleado = await Empleados.findOne({ where: { nombre } });
-      const empleadosRender = empleado ? empleado.dataValues : null;
-      console.log(empleadosRender);
-      res.render('list', { empleados: empleadosRender });
+      console.log(empleado);
+      const empleadoDataValues = empleado.dataValues
+      res.render('list', { empleadoDataValues });
     } catch (error) {
       // Manejo del error
       res.status(500).json({ error: 'Error al obtener los datos de empleados' });
