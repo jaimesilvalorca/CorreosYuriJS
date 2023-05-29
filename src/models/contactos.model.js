@@ -2,39 +2,36 @@ import { Model, DataTypes } from 'sequelize';
 import db from '../config/db.config.js';
 import Empleados from './empleados.models.js';
 
-class Contactos extends Model {}
+class ContactosEmergencia extends Model {}
 
-Contactos.init({
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-    allowNull: false
-  },
-  rut: {
-    type: DataTypes.STRING,
-    allowNull: true,
-    references: {
-      model: Empleados,
-      key: 'rut'
+ContactosEmergencia.init(
+  {
+    RUT_EMPLEADO: {
+      type: DataTypes.STRING(12),
+      primaryKey: true,
+      references: {
+        model: Empleados,
+        key: 'rut'
+      }
+    },
+    NOMBRE_CONTACTO: {
+      type: DataTypes.STRING(100)
+    },
+    RELACION: {
+      type: DataTypes.STRING(50)
+    },
+    TELEFONO: {
+      type: DataTypes.STRING(20)
     }
   },
-  nombre_contacto: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  relacion: {
-    type: DataTypes.STRING,
-    allowNull: true
-  },
-  telefono: {
-    type: DataTypes.STRING,
-    allowNull: true
+  {
+    sequelize: db,
+    tableName: 'ContactosEmergencia',
+    timestamps: false
   }
-}, {
-  sequelize: db,
-  tableName: 'contactos_emergencia',
-  timestamps: false
-});
+);
 
-export default Contactos;
+ContactosEmergencia.belongsTo(Empleados, { foreignKey: 'RUT_EMPLEADO', as: 'FK_CONTACTOS_EMERGENCIA_EMPLEADO' });
+
+export default ContactosEmergencia;
+
