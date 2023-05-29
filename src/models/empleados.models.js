@@ -1,4 +1,4 @@
-import { Model, DataTypes } from 'sequelize';
+import { Model, DataTypes, DatabaseError } from 'sequelize';
 import db from '../config/db.config.js';
 
 class Empleados extends Model {}
@@ -8,6 +8,10 @@ Empleados.init(
       type: DataTypes.STRING,
       primaryKey: true,
       allowNull: false,
+    },
+    nombre:{
+      type:DataTypes.STRING,
+      allowNull:true
     },
     fecha_ingreso: {
       type: DataTypes.DATE,

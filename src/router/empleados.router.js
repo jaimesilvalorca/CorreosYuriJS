@@ -53,6 +53,19 @@ router.get('/list', async (req, res) => {
     }
   });
 
+  router.get('/listAll', async (req, res) => {
+    try {
+      const empleados = await Empleados.findAll();
+      empleados.forEach(empleado => {
+        console.log(empleado.dataValues);
+      });
+      res.send(empleados); // Opcional: enviar la lista de empleados como respuesta al cliente
+    } catch (error) {
+      console.log(error);
+      res.status(500).send('Error al obtener la lista de empleados');
+    }
+  });
+
 
 
 
